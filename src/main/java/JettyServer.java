@@ -19,6 +19,8 @@ public class JettyServer {
 
         // Add servlets
         context.addServlet(new ServletHolder(new LoginServlet()), "/login");
+        context.addServlet(new ServletHolder(new DocumentServlet()), "/documents");
+        context.addServlet(new ServletHolder(new QuestionnaireServlet()), "/questions");
 
         // Start server
         server.start();
