@@ -25,13 +25,18 @@ public class LoginServlet extends HttpServlet {
         logger.debug("Received POST request with payload: {}", req.getReader().lines().collect(Collectors.joining()));
         logger.debug("Received POST request with username: {}, password: {}", username, password);
 
-        // Implement your login logic here
-        // For simplicity, we'll just echo the received data
-        String response = "Received usernameyooo: " + username + ", password: " + password;
+        // authentication logic
+        if (username.equals("admin") && password.equals("admin")) {
+            logger.debug("Login successful");
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            logger.debug("Login failed");
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }
 
         // Set response content type and write the response
         resp.setContentType("text/plain");
-        resp.getWriter().write(response);
+//        resp.getWriter().write(response);
     }
 }
 

@@ -12,15 +12,15 @@ public class JettyServer {
         context.setContextPath("/");
         server.setHandler(context);
 
-// Enable CORS for all origins on Jetty server
+        // Enable CORS for all origins on Jetty server
         FilterHolder cors = context.addFilter(CrossOriginFilter.class, "/*", null);
         cors.setInitParameter("allowedOrigins", "http://localhost:3000"); // Add your frontend origin
         cors.setInitParameter("allowedMethods", "GET,POST,HEAD,OPTIONS"); // Adjust as needed
 
-// Add servlets
+        // Add servlets
         context.addServlet(new ServletHolder(new LoginServlet()), "/login");
 
-// Start server
+        // Start server
         server.start();
         server.join();
 
