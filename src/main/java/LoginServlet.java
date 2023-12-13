@@ -28,19 +28,9 @@ public class LoginServlet extends HttpServlet {
         logger.debug("Received POST request with payload: {}", req.getReader().lines().collect(Collectors.joining()));
         logger.debug("Received POST request with username: {}, password: {}", username, password);
 
-        // authentication logic
-        // get users from file
-        List<User> userList = UserFileHandler.getUsers();
-        logger.debug("User list: {}", userList);
-
         // check if user exists
-        boolean userExists = false;
-        for (User user : userList) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                userExists = true;
-                break;
-            }
-        }
+        boolean userExists = new UserFileHandler().getObjects().stream().
+                anyMatch(user -> user.getUsername().equals(username) && user.getPassword().equals(password));
 
         // send response
         resp.setStatus(userExists ? HttpServletResponse.SC_OK : HttpServletResponse.SC_UNAUTHORIZED);
