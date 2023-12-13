@@ -5,10 +5,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import models.*;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -26,17 +29,23 @@ public class LoginServlet extends HttpServlet {
         logger.debug("Received POST request with username: {}, password: {}", username, password);
 
         // authentication logic
-        if (username.equals("admin") && password.equals("admin")) {
-            logger.debug("Login successful");
-            resp.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            logger.debug("Login failed");
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        // get users from file
+        List<User> userList = UserFileHandler.getUsers();
+        logger.debug("User list: {}", userList);
+
+        // check if user exists
+        boolean userExists = false;
+        for (User user : userList) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                userExists = true;
+                break;
+            }
         }
 
-        // Set response content type and write the response
+        // send response
+        resp.setStatus(userExists ? HttpServletResponse.SC_OK : HttpServletResponse.SC_UNAUTHORIZED);
+
         resp.setContentType("text/plain");
-//        resp.getWriter().write(response);
     }
 }
 
