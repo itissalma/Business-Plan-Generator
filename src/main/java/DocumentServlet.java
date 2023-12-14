@@ -35,7 +35,7 @@ public class DocumentServlet extends HttpServlet {
                         append(",\"name\":\"").append(plan.getName()).
                         append("\"},");
             }
-            jsonResponse.deleteCharAt(jsonResponse.length() - 1);
+            if (jsonResponse.length() > 1) jsonResponse.deleteCharAt(jsonResponse.length() - 1);
             jsonResponse.append("]");
             logger.debug("JSON response is {}", jsonResponse);
 
