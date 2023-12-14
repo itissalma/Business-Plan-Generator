@@ -4,12 +4,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import models.Plan;
+import models.PlanFileHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,45 +18,34 @@ public class DocumentServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(DocumentServlet.class);
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Create a list of sample documents (replace with your actual logic to fetch documents)
-        List<Document> documents = createSampleDocuments();
+        try {
+            String username = req.getParameter("username");
 
-        // Convert the list of documents to JSON
-        String jsonResponse = objectMapper.writeValueAsString(documents);
+            // Create a list of documents (each document is the id and name of a plan)
+            List<Plan> plans = new PlanFileHandler().getObjects().stream()
+                    .filter(plan -> plan.getUsername().equals(username))
+                    .toList();
 
-        // Set response content type and write the response
-        resp.setContentType("application/json");
-        resp.getWriter().write(jsonResponse);
-    }
+            // Convert the list of documents to JSON
+            StringBuilder jsonResponse = new StringBuilder("[");
+            for (Plan plan : plans) {
+                jsonResponse.append("{\"id\":").append(plan.getId()).
+                        append(",\"name\":\"").append(plan.getName()).
+                        append("\"},");
+            }
+            jsonResponse.deleteCharAt(jsonResponse.length() - 1);
+            jsonResponse.append("]");
+            logger.debug("JSON response is {}", jsonResponse);
 
-    // Replace this method with your actual logic to fetch documents from the database or another source
-    private List<Document> createSampleDocuments() {
-        List<Document> documents = new ArrayList<>();
-        documents.add(new Document(1, "Breadfast"));
-        documents.add(new Document(2, "Cilantro"));
-        documents.add(new Document(3, "Pepsi"));
-        return documents;
-    }
-
-    private static class Document {
-        private final int id;
-        private final String name;
-
-        public Document(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
+            // Set response content type and write the response
+            resp.setContentType("application/json");
+            resp.getWriter().write(jsonResponse.toString());
+        } catch (Exception e) {
+            logger.error("Error getting documents", e);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("Error getting documents: " + e.getMessage());
         }
     }
 }
