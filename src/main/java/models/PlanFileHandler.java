@@ -57,7 +57,7 @@ public class PlanFileHandler extends FileHandler<Plan>{
         String[] answers = new String[7];
         if (answersMatcher.find()) {
             String answersString = answersMatcher.group(1);
-            String[] answersArray = answersString.split(",");
+            String[] answersArray = answersString.split("\",\"");
             // remove quotes from each answer
             for (int i = 0; i < answersArray.length; i++) {
                 answers[i] = answersArray[i].replace("\"", "");
@@ -67,7 +67,7 @@ public class PlanFileHandler extends FileHandler<Plan>{
         String[] sectionsContent = new String[7];
         if (sectionsContentMatcher.find()) {
             String sectionsContentString = sectionsContentMatcher.group(1);
-            String[] sectionsContentArray = sectionsContentString.split(",");
+            String[] sectionsContentArray = sectionsContentString.split("\",\"");
             // remove quotes from each section content
             for (int i = 0; i < sectionsContentArray.length; i++) {
                 sectionsContent[i] = sectionsContentArray[i].replace("\"", "");
