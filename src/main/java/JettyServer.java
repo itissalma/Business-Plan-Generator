@@ -21,7 +21,9 @@ public class JettyServer {
         context.addServlet(new ServletHolder(new LoginServlet()), "/login");
         context.addServlet(new ServletHolder(new DocumentServlet()), "/documents");
         context.addServlet(new ServletHolder(new QuestionnaireServlet()), "/questions");
-
+        context.addServlet(new ServletHolder(new ExpandTextServlet()), "/expand-text");
+        context.addServlet(new ServletHolder(new BusinessPlanServlet()), "/business-plan");
+        context.addServlet(new ServletHolder(new DeleteDocumentServlet()), "/delete-document/*");
         // Start server
         server.start();
         server.join();
