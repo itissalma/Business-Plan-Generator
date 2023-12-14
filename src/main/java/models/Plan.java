@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Plan {
     // this class is used to store the details of a business plan
-    // each plan has a name, a description, and a list of sections
     private final String username;
     private String name;
     private final int id;

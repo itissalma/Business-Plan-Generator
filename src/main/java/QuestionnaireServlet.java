@@ -26,14 +26,14 @@ public class QuestionnaireServlet extends HttpServlet {
             String targetAudience = req.getParameter("targetAudience");
             String employeesCount = req.getParameter("employeesCount");
             String businessGoals = req.getParameter("businessGoals");
-            String userName = req.getParameter("userName");
+            String username = req.getParameter("userName");
 
             // Log the received data
             logger.debug("Received POST request with company data: {}, {}, {}, {}, {}, {}, {}",
                     companyName, businessOverview, country, productsServices, targetAudience, employeesCount, businessGoals);
 
             // Create a new plan object with the answers
-            String username = (String) req.getSession().getAttribute("username");
+            // String username = (String) req.getSession().getAttribute("username");    // TODO: try to use sessions
             int id = new PlanFileHandler().getObjects().size();
             Plan plan = new Plan(username, companyName, id, new String[]{
                     companyName,
