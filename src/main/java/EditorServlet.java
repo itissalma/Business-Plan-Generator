@@ -14,7 +14,7 @@ public class EditorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int planId = extractPlanId(req);
-            System.out.println("planId = " + planId);
+            System.out.println("\n\n\n\n\n\nplanId = " + planId);
             System.out.println("request params = " + req.getParameterMap());
 
             Plan plan = new PlanFileHandler().getObjects().stream()

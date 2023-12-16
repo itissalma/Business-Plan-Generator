@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import models.Plan;
+import models.PlanFileHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,8 +62,16 @@ public class DeleteDocumentServlet extends HttpServlet {
     private boolean deleteDocument(int documentId) {
         // Replace this with your actual logic to delete the document by ID
         // Return true if the document is deleted, false otherwise
-        // For simplicity, this example always returns true
-        return true;
+        Plan plan = new PlanFileHandler().getObjects().stream()
+                .filter(p -> p.getId() == documentId)
+                .findFirst()
+                .orElse(null);
+
+        if (plan == null) {
+            return false;
+        } else {
+            return new PlanFileHandler().deleteObject(plan);
+        }
     }
 }
 

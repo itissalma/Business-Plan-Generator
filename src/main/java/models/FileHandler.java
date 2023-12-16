@@ -113,12 +113,16 @@ public class FileHandler<T extends identifiable> {
         }
     }
 
-    public void deleteObject(T obj) {
+    public boolean deleteObject(T obj) {
         List<T> objectList = getObjects();
-        if (objectList.remove(obj)) {
+        // remove object from list by id
+        // return true if object was removed, false otherwise
+        boolean removed = objectList.removeIf(o -> o.getId() == obj.getId());
+        if (removed) {
             writeObjectsToJson(objectList);
         } else {
-            System.err.println("Object not found for deletion.");
+            System.err.println("Object not found for deleting.");
         }
+        return removed;
     }
 }

@@ -29,7 +29,7 @@ public class Plan implements identifiable {
             "What are your goals for the business?"
     };
 
-    private String[] answers = new String[7];
+    private String[] answers;
     private String[] sectionsContent = new String[7];
 
     public Plan(String username, String name, String[] answers) {
@@ -208,5 +208,29 @@ public class Plan implements identifiable {
     @Override
     public void setId(int id) {
         this.id = id;
+    }
+
+    public static String getSectionsString() {
+        // section title 1, section title 2, section title 3, ...
+        StringBuilder sectionsString = new StringBuilder();
+        for (int i = 0; i < sections.length; i++) {
+            sectionsString.append(sections[i]);
+            if (i < sections.length - 1) {
+                sectionsString.append(", ");
+            }
+        }
+        return sectionsString.toString();
+    }
+
+    public String getQuestionsAndAnswersString() {
+        // question 1 answer 1 question 2 answer 2 ...
+        StringBuilder questionsAndAnswersString = new StringBuilder();
+        for (int i = 0; i < questions.length; i++) {
+            questionsAndAnswersString.append(questions[i]).append(" ").append(answers[i]);
+            if (i < questions.length - 1) {
+                questionsAndAnswersString.append(" ");
+            }
+        }
+        return questionsAndAnswersString.toString();
     }
 }
