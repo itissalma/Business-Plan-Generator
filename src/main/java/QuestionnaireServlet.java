@@ -4,8 +4,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.stream.Collectors;
 
+import models.PlanFileHandler;
+import models.Plan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ public class QuestionnaireServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(QuestionnaireServlet.class);
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             // Read the request parameters
             String companyName = req.getParameter("companyName");
@@ -25,18 +26,34 @@ public class QuestionnaireServlet extends HttpServlet {
             String targetAudience = req.getParameter("targetAudience");
             String employeesCount = req.getParameter("employeesCount");
             String businessGoals = req.getParameter("businessGoals");
-            String userName = req.getParameter("userName");
+            String username = req.getParameter("userName");
 
             // Log the received data
-            logger.debug("Received POST request with company data: {}", companyName);
+            logger.debug("Received POST request with company data: {}, {}, {}, {}, {}, {}, {}",
+                    companyName, businessOverview, country, productsServices, targetAudience, employeesCount, businessGoals);
 
-            // You can now handle the received data as needed, for example, store it in a database
+            // Create a new plan object with the answers
+            // String username = (String) req.getSession().getAttribute("username");    // TODO: try to use sessions
+            int id = new PlanFileHandler().getObjects().size();
+            Plan plan = new Plan(username, companyName, id, new String[]{
+                    companyName,
+                    businessOverview,
+                    country,
+                    productsServices,
+                    targetAudience,
+                    employeesCount,
+                    businessGoals
+            });
+
+            // Save the plan to file
+            new PlanFileHandler().addObject(plan);
 
             // Send a response
             resp.setContentType("text/plain");
             resp.getWriter().write("Data received successfully!");
         } catch (Exception e) {
             logger.error("Error processing form submission", e);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing form submission");
         }
     }

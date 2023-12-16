@@ -28,6 +28,17 @@ public class FileHandler<T> {
     }
 
     private List<T> readObjectsFromJson() {
+        // create file if not exists
+        File file = new File(FILE_PATH);
+        try {
+            if (file.createNewFile()) {
+                System.out.println("JSON file created successfully.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error creating JSON file.");
+        }
+
         List<T> objectList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
