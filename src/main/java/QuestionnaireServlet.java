@@ -35,7 +35,7 @@ public class QuestionnaireServlet extends HttpServlet {
             // Create a new plan object with the answers
             // String username = (String) req.getSession().getAttribute("username");    // TODO: try to use sessions
             int id = new PlanFileHandler().getObjects().size();
-            Plan plan = new Plan(username, companyName, id, new String[]{
+            Plan plan = new Plan(username, companyName, new String[]{
                     companyName,
                     businessOverview,
                     country,

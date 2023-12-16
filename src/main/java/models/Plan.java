@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class Plan {
+public class Plan implements identifiable {
     // this class is used to store the details of a business plan
     private final String username;
     private String name;
-    private final int id;
+    private int id;
+    private static int lastID = 0;
     private static final String[] sections = {
             "Executive Summary",
             "Company Description",
@@ -31,23 +32,23 @@ public class Plan {
     private String[] answers = new String[7];
     private String[] sectionsContent = new String[7];
 
-    public Plan(String username, String name, int id) {
+    public Plan(String username, String name, String[] answers) {
         this.username = username;
         this.name = name;
-        this.id = id;
-    }
-
-    public Plan(String username, String name, int id, String[] answers) {
-        this.username = username;
-        this.name = name;
-        this.id = id;
         this.answers = answers;
     }
 
-    public Plan(String username, String name, int id, String[] answers, String[] sectionsContent) {
+    public Plan(String username, String name, String[] answers, String[] sectionsContent) {
         this.username = username;
         this.name = name;
+        this.answers = answers;
+        this.sectionsContent = sectionsContent;
+    }
+
+    public Plan(int id, String username, String name, String[] answers, String[] sectionsContent) {
         this.id = id;
+        this.username = username;
+        this.name = name;
         this.answers = answers;
         this.sectionsContent = sectionsContent;
     }
@@ -91,6 +92,7 @@ public class Plan {
     @Override
     public String toString() {
         return "Plan{" +
+                "id='" + id + '\'' +
                 "username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", answers='" + Arrays.toString(answers) + '\'' +
@@ -148,10 +150,6 @@ public class Plan {
         return "";
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getAnswersString() {
         // json array
         StringBuilder answersString = new StringBuilder("[");
@@ -176,5 +174,42 @@ public class Plan {
         }
         sectionsContentString.append("]");
         return sectionsContentString.toString();
+    }
+
+    public String getSectionsJSON() {
+        // json array
+        StringBuilder sectionsString = new StringBuilder("[");
+        for (int i = 0; i < sections.length; i++) {
+            String sc = sectionsContent[i];
+            if (sc == null) {
+                sc = "";
+            }
+            sectionsString.append("{\"").append(sections[i]).append("\":\"").append(sc).append("\"}");
+            if (i < sections.length - 1) {
+                sectionsString.append(",");
+            }
+        }
+        sectionsString.append("]");
+        return sectionsString.toString();
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void incrementLastId() {
+        lastID++;
+    }
+
+    @Override
+    public int getLastId() {
+        return lastID;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 }

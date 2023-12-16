@@ -18,7 +18,7 @@ public class TestFiles {
         System.out.println(userList);
 
         // create dummy business plans
-        Plan plan1 = new Plan("salma", "plan1", 0,
+        Plan plan1 = new Plan("salma", "plan1",
                 new String[]{
                         "ABC Company",
                         "ABC Company is a tech startup specializing in software development.",
@@ -38,7 +38,7 @@ public class TestFiles {
                         "We project steady growth in revenue over the next few years. Our financial plan includes careful budgeting, investment in research and development, and strategic marketing initiatives."
                 });
 
-        Plan plan2 = new Plan("shady", "plan2", 1,
+        Plan plan2 = new Plan("shady", "plan2",
                 new String[]{
                         "XYZ Solutions",
                         "XYZ Solutions is a consulting firm providing business advisory services.",
@@ -58,7 +58,7 @@ public class TestFiles {
                         "XYZ Solutions is on a trajectory of sustainable growth. Our financial plan includes prudent financial management, strategic investments in technology, and initiatives to expand our service offerings."
                 });
 
-        Plan plan3 = new Plan("salma", "plan3", 2,
+        Plan plan3 = new Plan("salma", "plan3",
                 new String[]{
                         "123 Enterprises",
                         "123 Enterprises is a retail business specializing in electronics.",

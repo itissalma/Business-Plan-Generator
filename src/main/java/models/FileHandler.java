@@ -4,7 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileHandler<T> {
+// filehandler to read and write objects that implement identifiable interface to json file
+public class FileHandler<T extends identifiable> {
     private final String FILE_PATH;
 
     public FileHandler(String filePath) {
@@ -96,6 +97,8 @@ public class FileHandler<T> {
     public void addObject(T obj) {
         List<T> objectList = getObjects();
         objectList.add(obj);
+        obj.setId(obj.getLastId() + 1);
+        obj.incrementLastId();
         writeObjectsToJson(objectList);
     }
 
