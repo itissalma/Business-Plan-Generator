@@ -177,19 +177,16 @@ public class Plan implements identifiable {
     }
 
     public String getSectionsJSON() {
-        // json array
-        StringBuilder sectionsString = new StringBuilder("[");
+        // json object with sections as keys and content as values
+        StringBuilder sectionsString = new StringBuilder("{");
         for (int i = 0; i < sections.length; i++) {
-            String sc = sectionsContent[i];
-            if (sc == null) {
-                sc = "";
-            }
-            sectionsString.append("{\"").append(sections[i]).append("\":\"").append(sc).append("\"}");
+            sectionsString.append("\"").append(sections[i]).append("\":\"").append(sectionsContent[i]).append("\"");
             if (i < sections.length - 1) {
                 sectionsString.append(",");
             }
         }
-        sectionsString.append("]");
+        sectionsString.append("}");
+
         return sectionsString.toString();
     }
 
