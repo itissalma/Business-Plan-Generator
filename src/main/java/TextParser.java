@@ -1,95 +1,40 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextParser {
 
-    public static void main(String[] args) {
-        String inputText = "Executive Summary:\n\npaymob is a fintech company based in Egypt, specializing in providing payment processing and integration solutions. Our digital payment solution is designed to cater specifically to the needs of small businesses. With a current team of 25 employees, our primary goal is to expand our presence in the MENA region.\n\nCompany Description:\n\npaymob is a leading fintech company in Egypt, offering innovative payment processing and integration solutions. Our mission is to empower small businesses by enabling secure, convenient, and seamless digital payment transactions. With a strong focus on customer satisfaction, we strive to provide cutting-edge technology and exceptional service.\n\nProducts and Services:\n\nWe offer a comprehensive digital payment solution that includes a range of features designed to meet the specific requirements of small businesses. Our services include online payment gateway integration, mobile payment solutions, QR code payments, and secure card processing capabilities. By leveraging the latest technology, we enable businesses to enhance their customer experience while streamlining payment processes.\n\nMarket Analysis:\n\nThe market for digital payment solutions in the MENA region is growing rapidly due to the increasing adoption of e-commerce and the transformation of traditional businesses to digital platforms. Small businesses, in particular, face numerous challenges in embracing digital payment methods, such as costly integration processes and lack of accessible solutions. paymob aims to bridge this gap by providing affordable and user-friendly payment solutions tailored to the needs of small businesses.\n\nStrategy and Implementation:\n\nOur strategy revolves around expansion in the MENA region, capitalizing on the untapped market potential. By focusing on targeted marketing campaigns and strategic partnerships, we aim to increase our brand presence and attract a larger customer base. Additionally, we will invest in research and development to continually enhance our product offerings and stay ahead of competitors.\n\nOrganization and Management Team:\n\npaymob is led by a team of experienced professionals with expertise in fintech, payment solutions, and business development. With a diverse skill set and a shared vision, our management team is committed to driving the growth and success of the company. Each member brings valuable industry knowledge and strategic acumen, ensuring that paymob is well-positioned for continuous expansion.\n\nFinancial Plan:\n\nOur financial plan is centered around sustainable growth and profitability. We anticipate steady revenue streams from transaction fees and service charges. As we expand our reach and build a larger customer base, we expect to achieve economies of scale, which will further enhance our financial performance. To support our growth goals, we will actively seek external funding and strategic partnerships that align with our vision.";
+    public static String[] parse(String inputText) {
+//        inputText = "Executive Summary:\n\npaymob is a fintech company based in Egypt, specializing in providing payment processing and integration solutions. Our digital payment solution is designed to cater specifically to the needs of small businesses. With a current team of 25 employees, our primary goal is to expand our presence in the MENA region.\n\nCompany Description:\n\npaymob is a leading fintech company in Egypt, offering innovative payment processing and integration solutions. Our mission is to empower small businesses by enabling secure, convenient, and seamless digital payment transactions. With a strong focus on customer satisfaction, we strive to provide cutting-edge technology and exceptional service.\n\nProducts and Services:\n\nWe offer a comprehensive digital payment solution that includes a range of features designed to meet the specific requirements of small businesses. Our services include online payment gateway integration, mobile payment solutions, QR code payments, and secure card processing capabilities. By leveraging the latest technology, we enable businesses to enhance their customer experience while streamlining payment processes.\n\nMarket Analysis:\n\nThe market for digital payment solutions in the MENA region is growing rapidly due to the increasing adoption of e-commerce and the transformation of traditional businesses to digital platforms. Small businesses, in particular, face numerous challenges in embracing digital payment methods, such as costly integration processes and lack of accessible solutions. paymob aims to bridge this gap by providing affordable and user-friendly payment solutions tailored to the needs of small businesses.\n\nStrategy and Implementation:\n\nOur strategy revolves around expansion in the MENA region, capitalizing on the untapped market potential. By focusing on targeted marketing campaigns and strategic partnerships, we aim to increase our brand presence and attract a larger customer base. Additionally, we will invest in research and development to continually enhance our product offerings and stay ahead of competitors.\n\nOrganization and Management Team:\n\npaymob is led by a team of experienced professionals with expertise in fintech, payment solutions, and business development. With a diverse skill set and a shared vision, our management team is committed to driving the growth and success of the company. Each member brings valuable industry knowledge and strategic acumen, ensuring that paymob is well-positioned for continuous expansion.\n\nFinancial Plan:\n\nOur financial plan is centered around sustainable growth and profitability. We anticipate steady revenue streams from transaction fees and service charges. As we expand our reach and build a larger customer base, we expect to achieve economies of scale, which will further enhance our financial performance. To support our growth goals, we will actively seek external funding and strategic partnerships that align with our vision.";
+//        inputText = "Executive Summary:\n\nPaymob is a fintech company based in Egypt that specializes in providing payment processing and integration solutions. Our primary goal is to offer small businesses in the MENA region a convenient and secure digital payment solution. With a team of 25 dedicated employees, Paymob aims to expand its footprint in the region and revolutionize the way transactions are conducted.\n\nCompany Description:\n\nPaymob is a fintech company headquartered in Egypt, catering to small businesses in the MENA region. We offer an innovative digital payment solution, allowing merchants to seamlessly process transactions and integrate payment gateways into their existing systems. By leveraging cutting-edge technology, Paymob aims to revolutionize the financial landscape for small businesses.\n\nProducts and Services:\n\nPaymob's key product is a digital payment solution that empowers small businesses to accept online payments effortlessly. Our platform offers a range of features, including secure payment processing, seamless integration with existing systems, and customizable payment options. Moreover, we provide a user-friendly interface and robust backend support to ensure a hassle-free experience for merchants.\n\nMarket Analysis:\n\nPaymob operates in the fast-growing fintech sector in the MENA region, targeting small businesses seeking digital payment solutions. With the increasing adoption of e-commerce and demand for digitized financial services, the market holds tremendous potential. By 2024, the MENA region's e-commerce market is estimated to reach $28.5 billion, providing a fertile ground for Paymob's expansion.\n\nStrategy and Implementation:\n\nPaymob envisions deploying a two-pronged strategy to achieve its business goals. Firstly, we will leverage strategic partnerships with local financial institutions, e-commerce platforms, and other key stakeholders to widen our reach and enhance our service offerings. Secondly, we aim to invest in targeted marketing campaigns and lead generation strategies to capture a significant market share in the MENA region.\n\nOrganization and Management Team:\n\nPaymob is steered by a competent and experienced management team, consisting of professionals from the fintech and payments industry. Our team brings together expertise in technology, finance, operations, and business development, ensuring effective decision-making and the ability to adapt to evolving market dynamics. With a flat organizational structure, Paymob fosters a culture of creativity, collaboration, and agility.\n\nFinancial Plan:\n\nPaymob's financial plan is geared towards sustainable growth and profitability. We anticipate generating revenue through transaction fees, subscription charges, and value-added services. With our current growth trajectory and projected market demand, we forecast a steady increase in revenue over the next five years. Our financial plan also accounts for investments in technology, marketing, and talent acquisition to support our expansion plans.\n\nBy executing our business strategy diligently and adapting to market trends, Paymob aims to become a dominant player in the MENA region's digital payment landscape, empowering small businesses and facilitating economic growth.";
+//        inputText = "Executive Summary:\\n\\nPaymob is a fintech company located in Egypt, providing a comprehensive digital payment solution for small businesses. With a team of 25 employees, our goal is to expand our services in the MENA region.\\n\\nCompany Description:\\nPaymob is a leading fintech company in Egypt that specializes in payment processing and integration. Our digital payment solution aims to simplify financial transactions for small businesses, enabling them to accept various payment methods securely and efficiently. By streamlining the payment process, we help businesses improve their operational efficiency and enhance customer satisfaction.\\n\\nProducts and Services:\\nPaymob offers a range of digital payment solutions tailored for small businesses. Our services include payment processing, online transactions, mobile wallets integration, and point-of-sale payment terminals. By providing a seamless payment experience, businesses can easily accept payments from customers using credit cards, eWallets, and other digital payment methods.\\n\\nMarket Analysis:\\nThe MENA region presents a significant opportunity for Paymob's growth. With a growing economy and increasing digital penetration, small businesses are in need of efficient payment solutions. Our target market consists of small businesses across different sectors, ranging from retail to hospitality. By offering a comprehensive suite of payment solutions, we aim to capture a significant market share in the MENA region.\\n\\nStrategy and Implementation:\\nTo achieve our goals, Paymob will focus on several strategic initiatives. Firstly, we will leverage our strong industry partnerships to expand our payment gateway network, allowing businesses to accept payments seamlessly. Additionally, we will invest in advanced security measures and fraud prevention systems to ensure secure transactions for our clients. Moreover, we plan to launch marketing campaigns and offer competitive pricing packages to attract small businesses to engage with our services.\\n\\nOrganization and Management Team:\\nPaymob is led by a team of experienced professionals who possess a deep understanding of the fintech industry. Our management team consists of individuals with expertise in operations, technology, finance, and sales, ensuring comprehensive guidance and strategic decision-making. With a dedicated and skilled workforce, we aim to deliver exceptional service to our clients.\\n\\nFinancial Plan:\\nPaymob's financial plan focuses on sustainable growth and profitability. We project a positive financial outlook, driven by an increasing customer base and strong market demand. Key revenue streams include transaction fees, subscription models, and value-added services. By carefully managing costs and investing in customer acquisition, we anticipate steady revenue growth and expansion in the MENA region.\\n\\nIn conclusion, Paymob is a leading fintech company based in Egypt that provides small businesses with a comprehensive digital payment solution. With a strategic focus on expanding in the MENA region, our goal is to support businesses in improving efficiency and customer satisfaction. Through our advanced payment processing and integration services, we aim to become the preferred partner for small businesses across various sectors.";
 
-        // Define the pattern for titles
-        // the titles are Executive Summary, Company Description, Products and Services, Market Analysis, Strategy and Implementation, Organization and Management Team, Financial Plan
-        // pattern for Executive Summary
-        Pattern execSumPat = Pattern.compile("Executive Summary:\\n\\n");
-        // pattern for Company Description
-        Pattern comDescPat = Pattern.compile("Company Description:\\n\\n");
-        // pattern for Products and Services
-        Pattern prodServPat = Pattern.compile("Products and Services:\\n\\n");
-        // pattern for Market Analysis
-        Pattern markAnalPat = Pattern.compile("Market Analysis:\\n\\n");
-        // pattern for Strategy and Implementation
-        Pattern stratImplPat = Pattern.compile("Strategy and Implementation:\\n\\n");
-        // pattern for Organization and Management Team
-        Pattern orgManTeamPat = Pattern.compile("Organization and Management Team:\\n\\n");
-        // pattern for Financial Plan
-        Pattern finPlanPat = Pattern.compile("Financial Plan:\\n\\n");
+        ArrayList<String> sectionsContent = new ArrayList<>();
 
-        // Split the input text by titles
-        String[] sections = inputText.split(execSumPat.pattern());
-        String[] sections2 = sections[1].split(comDescPat.pattern());
-        String[] sections3 = sections2[1].split(prodServPat.pattern());
-        String[] sections4 = sections3[1].split(markAnalPat.pattern());
-        String[] sections5 = sections4[1].split(stratImplPat.pattern());
-        String[] sections6 = sections5[1].split(orgManTeamPat.pattern());
-        String[] sections7 = sections6[1].split(finPlanPat.pattern());
+        // split using '~' as a delimiter
+        String[] sectionsContentArray = inputText.split("~");
 
-        // Print the sections
-        for (String section : sections2) {
-            System.out.println(section);
-            System.out.println("--------------------------------------------------");
+        sectionsContentArray = Arrays.stream(sectionsContentArray).filter(s -> !s.isEmpty()).toArray(String[]::new);
+
+        // add every other element to the sectionsContent array
+        for (int i = 1; i < sectionsContentArray.length; i+=2){
+            sectionsContent.add(sectionsContentArray[i]);
         }
-//
-//        // Print the sections
-//        for (String section : sections2) {
-//            System.out.println(section);
-//        }
-//
-//        // Print the sections
-//        for (String section : sections3) {
-//            System.out.println(section);
-//        }
-//
-//        // Print the sections
-//        for (String section : sections4) {
-//            System.out.println(section);
-//        }
-//
-//        // Print the sections
-//        for (String section : sections5) {
-//            System.out.println(section);
-//        }
-//
-//        // Print the sections
-//        for (String section : sections6) {
-//            System.out.println(section);
-//        }
-//
-//        // Print the sections
-//        for (String section : sections7) {
-//            System.out.println(section);
-//        }
 
+        // if sectionsContent has more than 7 elements return first 7
+        // if it has less than 7, return it and add empty strings to it until it has 7 elements
+        if (sectionsContent.size() > 7){
+            return sectionsContent.subList(0, 7).toArray(new String[0]);
+        } else {
+            while (sectionsContent.size() < 7){
+                sectionsContent.add("");
+            }
+            return sectionsContent.toArray(new String[0]);
+        }
+    }
 
-//        Pattern titlePattern = Pattern.compile("([A-Z][a-z]+\\s[A-Z][a-z]+):");
-//
-//        // Split the input text by titles
-//        String[] sections = inputText.split(titlePattern.pattern());
-//
-//        // Print the sections
-//        for (String section : sections) {
-//            System.out.println(section);
-//        }
-//
-//        // Define the pattern for the content of each section
-//        Pattern contentPattern = Pattern.compile("([A-Z][a-z]+\\s[A-Z][a-z]+):\\n\\n(.*)\\n\\n");
-//
-//        // Print the content of each section
-//        for (String section : sections) {
-//            Matcher matcher = contentPattern.matcher(section);
-//            if (matcher.find()) {
-//                System.out.println(matcher.group(2));
-//            }
-//        }
-
-        System.out.println("Done!");
+    public static void main(String[] args){
+        System.out.println(Arrays.toString(parse("")));
     }
 }

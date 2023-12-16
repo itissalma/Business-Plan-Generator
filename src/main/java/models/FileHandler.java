@@ -104,8 +104,10 @@ public class FileHandler<T extends identifiable> {
 
     public void updateObject(T obj) {
         List<T> objectList = getObjects();
-        int index = objectList.indexOf(obj);
+        // get object index by id
+        int index = objectList.stream().filter(o -> o.getId() == obj.getId()).findFirst().map(objectList::indexOf).orElse(-1);
         if (index != -1) {
+            // replace object at index with new object
             objectList.set(index, obj);
             writeObjectsToJson(objectList);
         } else {

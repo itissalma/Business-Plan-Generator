@@ -7,6 +7,7 @@ public class PlanFileHandler extends FileHandler<Plan>{
     private static final String FILE_PATH = "src/main/java/models/plans.json";
     public PlanFileHandler() {
         super(FILE_PATH);
+        Plan.setLastID(getObjects().size());
     }
 
     @Override

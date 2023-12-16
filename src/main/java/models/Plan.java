@@ -61,7 +61,7 @@ public class Plan implements identifiable {
         return name;
     }
 
-    public String[] getSections() {
+    public static String[] getSections() {
         return sections;
     }
 
@@ -232,5 +232,9 @@ public class Plan implements identifiable {
             }
         }
         return questionsAndAnswersString.toString();
+    }
+
+    public static void setLastID(int lastID) {
+        Plan.lastID = lastID;
     }
 }

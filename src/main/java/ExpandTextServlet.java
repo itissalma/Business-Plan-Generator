@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 @WebServlet("/expand-text")
 public class ExpandTextServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);
+    private static final chatGPT chatty = new chatGPT();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Read the text from the request body
@@ -30,24 +31,19 @@ public class ExpandTextServlet extends HttpServlet {
 
         try {
             // Expand the text (replace with your actual GPT API integration)
-            String expandedText = expandTextWithDummyData(textToExpand);
-            //remove the "text" title and the curly brackets
-            //expandedText = expandedText.substring(9, expandedText.length() - 2);
-            logger.debug("Expanded text is {}", expandedText);
+
+            String output = chatty.generateResponse(textToExpand);
+
+            logger.debug("Expanded text is {}", output);
 
             // Send the expanded text as the response
             response.setContentType("text/plain");
             PrintWriter out = response.getWriter();
-            out.println(expandedText);
+            out.println(output);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();
         }
     }
 
-    // Example function for text expansion using dummy data
-    private String expandTextWithDummyData(String textToExpand) {
-        // Replace this with your actual text expansion logic
-        return textToExpand;
-    }
 }
