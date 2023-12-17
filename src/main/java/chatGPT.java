@@ -1,3 +1,4 @@
+//Shady Nessim 900191322 Salma Aly 900203182
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -5,7 +6,7 @@ import java.net.URL;
 public class chatGPT {
 
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
     private static final String MODEL = "gpt-3.5-turbo";
 
     public static String generateResponse(String prompt) {
