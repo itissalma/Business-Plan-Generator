@@ -61,7 +61,7 @@ public class QuestionnaireServlet extends HttpServlet {
             // build a prompt for chatGPT to generate the sections content of the plan based on the answers to the questions
             String prompt = "can you generate a business plan with the following sections in the order you were presented: " +
                     Plan.getSectionsString() + ". use these questions and answers to generate the sections: " +
-                    plan.getQuestionsAndAnswersString() + ". don't add any extra sections.";
+                    plan.getQuestionsAndAnswersString() + ". don't add any extra sections. Just start out with the first section. ";
 
             // generate the sections content using chatGPT
             String message = chatty.generateResponse(prompt);

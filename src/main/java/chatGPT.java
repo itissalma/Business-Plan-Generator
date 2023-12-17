@@ -5,7 +5,7 @@ import java.net.URL;
 public class chatGPT {
 
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
     private static final String MODEL = "gpt-3.5-turbo";
 
     public static String generateResponse(String prompt) {
